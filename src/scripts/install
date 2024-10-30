@@ -1,0 +1,11 @@
+#!/bin/bash
+
+if command -v curl &>/dev/null; then
+  curl https://qlty.ai/install.sh | bash
+elif command -v wget &>/dev/null; then
+  wget -O - https://qlty.ai/install.sh | bash
+else
+  error 'curl or wget is required to install qlty'
+fi
+
+$HOME/.qlty/bin/qlty --version

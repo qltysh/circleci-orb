@@ -1,0 +1,16 @@
+{
+  "RSpec": {
+    "coverage": {
+      "/Users/federicomoya/Documents/repos/qlty-testing-orb/fixtures/basic-ruby/lib/hello_world.rb": {
+        "lines": [
+          1,
+          1,
+          1,
+          null,
+          null
+        ]
+      }
+    },
+    "timestamp": 1723057207
+  }
+}

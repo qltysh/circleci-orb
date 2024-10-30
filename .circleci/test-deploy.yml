@@ -1,0 +1,73 @@
+version: 2.1
+orbs:
+  # Your orb will be automatically injected here during the pipeline.
+  # Reference your orb's jobs and commands below as they will exist when built.
+  orb-tools: circleci/orb-tools@12.0
+  # The orb definition is intentionally not included here. It will be injected into the pipeline.
+  qlty-testing-orb: {}
+
+# Use this tag to ensure test jobs always run,
+# even though the downstream publish job will only run on release tags.
+filters: &filters
+  tags:
+    only: /.*/
+
+# Filter for release tags.
+release-filters: &release-filters
+  branches:
+    ignore: /.*/
+  tags:
+    only: /^v[0-9]+\.[0-9]+\.[0-9]+$/
+
+jobs:
+  basic-ruby-fixture:
+    docker:
+      - image: circleci/ruby
+    steps:
+      - checkout
+      - run: ls
+      - run:
+          command: bundle install --jobs 4
+          working_directory: ~/project/fixtures/basic-ruby
+      - run:
+          command: bundle exec rspec --color --require spec_helper spec --format progress
+          working_directory: ~/project/fixtures/basic-ruby
+      - persist_to_workspace:
+          root: fixtures/basic-ruby
+          paths:
+            - coverage/coverage.json
+  linux-basic-ruby-upload-test:
+    docker:
+      - image: cimg/base:current
+    environment:
+      QLTY_COVERAGE_TOKEN: qltcp_w48FpR3BV17PGB3k
+    steps:
+      - checkout
+      - qlty-testing-orb/coverage_publish:
+          file: coverage/coverage.json
+          working_directory: ~/project/fixtures/basic-ruby
+workflows:
+  test-deploy:
+    jobs:
+      # Make sure to include "filters: *filters" in every test job you want to run as part of your deployment.
+      # Test your orb's commands in a custom job and test your orb's jobs directly as a part of this workflow.
+      - basic-ruby-fixture:
+          filters: *filters
+      - linux-basic-ruby-upload-test:
+          filters: *filters
+          requires:
+            - basic-ruby-fixture
+
+      # The orb must be re-packed for publishing, and saved to the workspace.
+      - orb-tools/pack:
+          filters: *release-filters
+      - orb-tools/publish:
+          orb_name: codeclimate-testing/qlty-testing-orb
+          vcs_type: << pipeline.project.type >>
+          pub_type: production
+          # Ensure this job requires all test jobs and the pack job.
+          requires:
+            - orb-tools/pack
+            - linux-basic-ruby-upload-test
+          context: orb-publishing
+          filters: *release-filters

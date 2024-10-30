@@ -1,0 +1,13 @@
+version: 2.1
+
+description: >
+  Effortlessly publish your code coverage reports to Qlty Cloud
+  with minimal configuration. This Orb simplifies the process of
+  collecting coverage results and sending them to Qlty Cloud.
+display:
+  home_url: https://docs.qlty.ai
+  source_url: https://docs.qlty.ai
+
+# If your orb requires other orbs, you can import them like this. Otherwise remove the "orbs" stanza.
+# orbs:
+#  hello: circleci/hello-build@0.0.5

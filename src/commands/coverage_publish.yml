@@ -1,0 +1,77 @@
+description: |
+  Effortlessly publish your code coverage reports to Qlty Cloud
+  with minimal configuration.
+
+  Note: For Alpine-based executors, ensure that `coreutils` and `curl` are installed.
+parameters:
+  file:
+    description: Path to the code coverage report file to upload.
+    type: string
+    default: ""
+  tag:
+    description: The name of the tag to use for the coverage report.
+    type: string
+    default: ""
+  report_format:
+    description: |
+      The format of the coverage report to transform. If not
+      specified, the format will be inferred from the file
+      extension or contents [possible values: simplecov, clover,
+      cobertura, coverprofile, lcov, jacoco, qlty].
+    type: string
+    default: ""
+  transform_add_prefix:
+    description: |
+      The prefix to add to file paths in coverage payloads,
+      to make them match the project's directory structure.
+    type: string
+    default: ""
+  transform_strip_prefix:
+    description: |
+      The prefix to remove from absolute paths in coverage
+      payloads, to make them relative to the project root.
+      This is usually the directory in which the tests were
+      run. Defaults to current working directory.
+    type: string
+    default: ""
+  override_branch:
+    description: Override the branch from the CI environment.
+    type: string
+    default: ""
+  override_commit_sha:
+    description: Override the commit SHA from the CI environment.
+    type: string
+    default: ""
+  override_build_id:
+    description: Override the build identifier from the CI environment.
+    type: string
+    default: ""
+  token:
+    description: |
+      The Qlty code coverage token provided through your
+      Qlty's project settings. The orb will look for the
+      QLTY_COVERAGE_TOKEN environment variable by default.
+    type: env_var_name
+    default: "QLTY_COVERAGE_TOKEN"
+  working_directory:
+    description: The directory where to run the Qlty CLI.
+    type: string
+    default: "."
+steps:
+  - run:
+      name: Install Qlty CLI
+      command: <<include(scripts/install)>>
+  - run:
+      name: Publish Coverage Results
+      command: <<include(scripts/publish)>>
+      environment:
+        PARAM_FILE: << parameters.file >>
+        PARAM_TAG: << parameters.tag >>
+        PARAM_TRANSFORM_ADD_PREFIX: << parameters.transform_add_prefix >>
+        PARAM_TRANSFORM_STRIP_PREFIX: << parameters.transform_strip_prefix >>
+        PARAM_OVERRIDE_BRANCH: << parameters.override_branch >>
+        PARAM_OVERRIDE_COMMIT_SHA: << parameters.override_commit_sha >>
+        PARAM_OVERRIDE_BUILD_ID: << parameters.override_build_id >>
+        PARAM_TOKEN: << parameters.token >>
+        PARAM_WORKING_DIRECTORY: << parameters.working_directory >>
+

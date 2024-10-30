@@ -1,0 +1,61 @@
+#!/bin/bash
+
+QLTY_CMD="$HOME/.qlty/bin/qlty"
+
+# Initialize
+$QLTY_CMD init --no --no-upgrade-check --skip-plugins
+
+params=()
+
+# Function to add parameters
+add_param() {
+  local param_name=$1
+  local param_value=$2
+  if [[ -n $param_value ]]; then
+    params+=("$param_name")
+    params+=("$param_value")
+  fi
+}
+
+# Adding parameters if they are set
+add_param "--tag" "$PARAM_TAG"
+add_param "--transform-add-prefix" "$PARAM_TRANSFORM_ADD_PREFIX"
+add_param "--transform-strip-prefix" "$PARAM_TRANSFORM_STRIP_PREFIX"
+add_param "--override-branch" "$PARAM_OVERRIDE_BRANCH"
+add_param "--override-commit-sha" "$PARAM_OVERRIDE_COMMIT_SHA"
+add_param "--override-build-id" "$PARAM_OVERRIDE_BUILD_ID"
+
+if [[ -n $PARAM_TOKEN && $PARAM_TOKEN != "QLTY_COVERAGE_TOKEN" ]]; then
+  TOKEN_VALUE="${!PARAM_TOKEN}"
+  params+=("--token")
+  params+=("$TOKEN_VALUE")
+fi
+
+# Expand PARAM_WORKING_DIRECTORY and change to it
+WORKING_DIRECTORY="${PARAM_WORKING_DIRECTORY/#\~/$HOME}"
+cd "$WORKING_DIRECTORY" || exit
+
+# Build the command
+if [[ -n $PARAM_FILE ]]; then
+  command="$QLTY_CMD coverage publish \"$PARAM_FILE\" ${params[@]}"
+else
+  command="$QLTY_CMD coverage publish ${params[@]}"
+fi
+
+# Redact the token value
+redacted_command=$(printf "%s\n" "$command" | awk '{
+  for (i=1; i<=NF; i++) {
+    if ($i == "--token") {
+      printf "%s *** ", $i
+      i++  # Skip the next field (the actual token value)
+    } else {
+      printf "%s ", $i
+    }
+  }
+}')
+
+# Print the redacted command
+echo "Running: $redacted_command"
+
+# Execute the command
+eval "$command"

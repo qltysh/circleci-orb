@@ -1,0 +1,21 @@
+description: >
+  Seamlessly publish your code coverage reports to Qlty Cloud with this Orb.
+  Follow the example configuration below to integrate coverage reporting into your CI pipeline.
+usage:
+  version: 2.1
+  orbs:
+    qlty: codeclimate-testing/qlty-testing-orb@0.0.11
+  jobs:
+    run_tests_and_publish_coverage:
+      docker:
+        - image: cimg/node
+      steps:
+        - checkout
+        - run: npm install
+        - run: npm test
+        - qlty/coverage_publish:
+            file: coverage/lcov.info
+  workflows:
+    test_and_publish_coverage:
+      jobs:
+        - run_tests_and_publish_coverage
