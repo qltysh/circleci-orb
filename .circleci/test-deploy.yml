@@ -44,7 +44,7 @@ jobs:
     steps:
       - checkout
       - qlty-testing-orb/coverage_publish:
-          file: coverage/coverage.json
+          files: coverage/coverage.json
           working_directory: ~/project/fixtures/basic-ruby
 workflows:
   test-deploy:

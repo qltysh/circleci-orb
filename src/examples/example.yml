@@ -14,7 +14,7 @@ usage:
         - run: npm install
         - run: npm test
         - qlty/coverage_publish:
-            file: coverage/lcov.info
+            files: coverage/lcov.info
   workflows:
     test_and_publish_coverage:
       jobs:
