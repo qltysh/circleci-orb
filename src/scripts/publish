@@ -36,8 +36,8 @@ WORKING_DIRECTORY="${PARAM_WORKING_DIRECTORY/#\~/$HOME}"
 cd "$WORKING_DIRECTORY" || exit
 
 # Build the command
-if [[ -n $PARAM_FILE ]]; then
-  command="$QLTY_CMD coverage publish \"$PARAM_FILE\" ${params[@]}"
+if [[ -n $PARAM_FILES ]]; then
+  command="$QLTY_CMD coverage publish \"$PARAM_FILES\" ${params[@]}"
 else
   command="$QLTY_CMD coverage publish ${params[@]}"
 fi

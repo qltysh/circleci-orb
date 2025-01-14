@@ -4,8 +4,8 @@ description: |
 
   Note: For Alpine-based executors, ensure that `coreutils` and `curl` are installed.
 parameters:
-  file:
-    description: Path to the code coverage report file to upload.
+  files:
+    description: Path to the code coverage report files to upload.
     type: string
     default: ""
   tag:
@@ -65,7 +65,7 @@ steps:
       name: Publish Coverage Results
       command: <<include(scripts/publish)>>
       environment:
-        PARAM_FILE: << parameters.file >>
+        PARAM_FILES: << parameters.files >>
         PARAM_TAG: << parameters.tag >>
         PARAM_TRANSFORM_ADD_PREFIX: << parameters.transform_add_prefix >>
         PARAM_TRANSFORM_STRIP_PREFIX: << parameters.transform_strip_prefix >>
@@ -74,4 +74,3 @@ steps:
         PARAM_OVERRIDE_BUILD_ID: << parameters.override_build_id >>
         PARAM_TOKEN: << parameters.token >>
         PARAM_WORKING_DIRECTORY: << parameters.working_directory >>
-
