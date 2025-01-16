@@ -20,43 +20,22 @@ release-filters: &release-filters
     only: /^v[0-9]+\.[0-9]+\.[0-9]+$/
 
 jobs:
-  basic-ruby-fixture:
-    docker:
-      - image: circleci/ruby
-    steps:
-      - checkout
-      - run: ls
-      - run:
-          command: bundle install --jobs 4
-          working_directory: ~/project/fixtures/basic-ruby
-      - run:
-          command: bundle exec rspec --color --require spec_helper spec --format progress
-          working_directory: ~/project/fixtures/basic-ruby
-      - persist_to_workspace:
-          root: fixtures/basic-ruby
-          paths:
-            - coverage/coverage.json
-  linux-basic-ruby-upload-test:
+  linux-basic-upload-test:
     docker:
       - image: cimg/base:current
-    environment:
-      QLTY_COVERAGE_TOKEN: qltcp_w48FpR3BV17PGB3k
     steps:
       - checkout
       - qlty-orb/coverage_publish:
-          files: coverage/coverage.json
+          files: coverage/coverage_0.json, coverage/coverage_1.json
           working_directory: ~/project/fixtures/basic-ruby
+          transform_strip_prefix: /home/repos/qlty-testing-orb
 workflows:
   test-deploy:
     jobs:
       # Make sure to include "filters: *filters" in every test job you want to run as part of your deployment.
       # Test your orb's commands in a custom job and test your orb's jobs directly as a part of this workflow.
-      - basic-ruby-fixture:
+      - linux-basic-upload-test:
           filters: *filters
-      - linux-basic-ruby-upload-test:
-          filters: *filters
-          requires:
-            - basic-ruby-fixture
 
       # The orb must be re-packed for publishing, and saved to the workspace.
       - orb-tools/pack:
@@ -68,6 +47,6 @@ workflows:
           # Ensure this job requires all test jobs and the pack job.
           requires:
             - orb-tools/pack
-            - linux-basic-ruby-upload-test
+            - linux-basic-upload-test
           context: orb-publishing
           filters: *release-filters

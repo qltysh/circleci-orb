@@ -1,0 +1,18 @@
+{
+  "meta": {
+    "simplecov_version": "0.22.0"
+  },
+  "coverage": {
+    "/home/repos/qlty-testing-orb/fixtures/basic-ruby/lib/hello_world.rb": {
+      "lines": [
+        1,
+        1,
+        1,
+        null,
+        null
+      ]
+    }
+  },
+  "groups": {
+  }
+}
