@@ -52,7 +52,7 @@ if [[ -n $PARAM_FILES ]]; then
   cleaned_files_str=${cleaned_files_str:1} # Remove leading space
 
   # Build the command
-  command="$QLTY_CMD coverage publish \"$cleaned_files_str\" ${params[@]}"
+  command="$QLTY_CMD coverage publish $cleaned_files_str ${params[@]}"
 else
   command="$QLTY_CMD coverage publish ${params[@]}"
 fi
