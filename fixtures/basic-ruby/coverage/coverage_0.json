@@ -3,7 +3,7 @@
     "simplecov_version": "0.22.0"
   },
   "coverage": {
-    "/Users/federicomoya/Documents/repos/qlty-testing-orb/fixtures/basic-ruby/lib/hello_world.rb": {
+    "/home/repos/qlty-testing-orb/fixtures/basic-ruby/lib/hello_world.rb": {
       "lines": [
         1,
         1,

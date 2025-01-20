@@ -37,7 +37,22 @@ cd "$WORKING_DIRECTORY" || exit
 
 # Build the command
 if [[ -n $PARAM_FILES ]]; then
-  command="$QLTY_CMD coverage publish \"$PARAM_FILES\" ${params[@]}"
+  # Split PARAM_FILES by commas, trim whitespace, and filter empty values
+  IFS=',' read -r -a files_array <<< "$PARAM_FILES"
+  cleaned_files=()
+  for file in "${files_array[@]}"; do
+    trimmed_file=$(echo "$file" | xargs) # Trim leading/trailing whitespace
+    if [[ -n $trimmed_file ]]; then      # Filter out empty values
+      cleaned_files+=("$trimmed_file")
+    fi
+  done
+
+  # Join cleaned files with spaces for the command
+  cleaned_files_str=$(printf ' %s' "${cleaned_files[@]}")
+  cleaned_files_str=${cleaned_files_str:1} # Remove leading space
+
+  # Build the command
+  command="$QLTY_CMD coverage publish $cleaned_files_str ${params[@]}"
 else
   command="$QLTY_CMD coverage publish ${params[@]}"
 fi
