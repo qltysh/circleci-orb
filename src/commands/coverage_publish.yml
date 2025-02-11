@@ -18,12 +18,20 @@ parameters:
       specified, the format will be inferred from the file
       extension or contents [possible values: simplecov, clover,
       cobertura, coverprofile, lcov, jacoco, qlty].
-    type: string
-    default: ""
+    enum:
+      - clover
+      - cobertura
+      - coverprofile
+      - jacoco
+      - lcov
+      - simplecov
+      - qlty
+    type: enum
   transform_add_prefix:
     description: |
       The prefix to add to file paths in coverage payloads,
-      to make them match the project's directory structure.
+      to make them match the project's directory structure (e.g. 
+      `/Users/distiller/project/`).
     type: string
     default: ""
   transform_strip_prefix:
