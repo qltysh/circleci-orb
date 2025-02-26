@@ -19,6 +19,7 @@ parameters:
       extension or contents [possible values: simplecov, clover,
       cobertura, coverprofile, lcov, jacoco, qlty].
     enum:
+      - ""
       - clover
       - cobertura
       - coverprofile
@@ -27,11 +28,11 @@ parameters:
       - simplecov
       - qlty
     type: enum
+    default: ""
   transform_add_prefix:
     description: |
       The prefix to add to file paths in coverage payloads,
-      to make them match the project's directory structure (e.g. 
-      `/Users/distiller/project/`).
+      to make them match the project's directory structure.
     type: string
     default: ""
   transform_strip_prefix:
