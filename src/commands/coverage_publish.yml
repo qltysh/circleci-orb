@@ -18,7 +18,16 @@ parameters:
       specified, the format will be inferred from the file
       extension or contents [possible values: simplecov, clover,
       cobertura, coverprofile, lcov, jacoco, qlty].
-    type: string
+    enum:
+      - ""
+      - clover
+      - cobertura
+      - coverprofile
+      - jacoco
+      - lcov
+      - simplecov
+      - qlty
+    type: enum
     default: ""
   transform_add_prefix:
     description: |
