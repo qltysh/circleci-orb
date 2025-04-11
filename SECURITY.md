@@ -8,7 +8,7 @@ Security fixes are applied to the latest major version, as well as previous majo
 
 ## Reporting a Vulnerability
 
-To report a security vulnerability, use the [Report a Vulnerability](https://github.com/qltysh/qlty-action/security/advisories/new) form on GitHub, which will deliverd privately to the maintiners for review. Please do not use public forums like GitHub Issues and Discussions to discuss vulnerabilities or sensitive issues.
+To report a security vulnerability, use the [Report a Vulnerability](https://github.com/qltysh/circleci-orb/security/advisories/new) form on GitHub, which will deliverd privately to the maintiners for review. Please do not use public forums like GitHub Issues and Discussions to discuss vulnerabilities or sensitive issues.
 
 We’ll work with you to make sure we understand the issue and address it. Our security team will respond to your report within one day and provide regular updates throughout any remediaton process.
 
