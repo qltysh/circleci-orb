@@ -55,6 +55,10 @@ parameters:
     description: Override the build identifier from the CI environment.
     type: string
     default: ""
+  total_parts_count:
+    description: The total number of parts qlty cloud should expect to receive
+    type: integer
+    default: -1
   token:
     description: |
       The Qlty code coverage token provided through your
@@ -81,5 +85,6 @@ steps:
         PARAM_OVERRIDE_BRANCH: << parameters.override_branch >>
         PARAM_OVERRIDE_COMMIT_SHA: << parameters.override_commit_sha >>
         PARAM_OVERRIDE_BUILD_ID: << parameters.override_build_id >>
+        PARAM_TOTAL_PARTS_COUNT: << parameters.total_parts_count >>
         PARAM_TOKEN: << parameters.token >>
         PARAM_WORKING_DIRECTORY: << parameters.working_directory >>
