@@ -57,8 +57,8 @@ parameters:
     default: ""
   total_parts_count:
     description: The total number of parts qlty cloud should expect to receive
-    type: string
-    default: ""
+    type: integer
+    default: 1
   token:
     description: |
       The Qlty code coverage token provided through your

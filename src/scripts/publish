@@ -24,7 +24,10 @@ add_param "--transform-strip-prefix" "$PARAM_TRANSFORM_STRIP_PREFIX"
 add_param "--override-branch" "$PARAM_OVERRIDE_BRANCH"
 add_param "--override-commit-sha" "$PARAM_OVERRIDE_COMMIT_SHA"
 add_param "--override-build-id" "$PARAM_OVERRIDE_BUILD_ID"
-add_param "--total-parts-count" "$PARAM_TOTAL_PARTS_COUNT"
+
+if [[ -n $PARAM_TOTAL_PARTS_COUNT && $PARAM_TOTAL_PARTS_COUNT != "1" ]]; then
+  add_param "--total-parts-count" "$PARAM_TOTAL_PARTS_COUNT"
+fi
 
 if [[ -n $PARAM_TOKEN && $PARAM_TOKEN != "QLTY_COVERAGE_TOKEN" ]]; then
   TOKEN_VALUE="${!PARAM_TOKEN}"
