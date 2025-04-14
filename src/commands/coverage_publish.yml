@@ -12,30 +12,13 @@ parameters:
     description: The name of the tag to use for the coverage report.
     type: string
     default: ""
-  report_format:
-    description: |
-      The format of the coverage report to transform. If not
-      specified, the format will be inferred from the file
-      extension or contents [possible values: simplecov, clover,
-      cobertura, coverprofile, lcov, jacoco, qlty].
-    enum:
-      - ""
-      - clover
-      - cobertura
-      - coverprofile
-      - jacoco
-      - lcov
-      - simplecov
-      - qlty
-    type: enum
-    default: ""
-  transform_add_prefix:
+  add_prefix:
     description: |
       The prefix to add to file paths in coverage payloads,
       to make them match the project's directory structure.
     type: string
     default: ""
-  transform_strip_prefix:
+  strip_prefix:
     description: |
       The prefix to remove from absolute paths in coverage
       payloads, to make them relative to the project root.
@@ -43,33 +26,26 @@ parameters:
       run. Defaults to current working directory.
     type: string
     default: ""
-  override_branch:
-    description: Override the branch from the CI environment.
-    type: string
-    default: ""
-  override_commit_sha:
-    description: Override the commit SHA from the CI environment.
-    type: string
-    default: ""
-  override_build_id:
-    description: Override the build identifier from the CI environment.
-    type: string
-    default: ""
-  total_parts_count:
-    description: The total number of parts qlty cloud should expect to receive
-    type: integer
-    default: 1
-  token:
+  verbose:
+    description: Enable extra logging.
+    type: boolean
+    default: false
+  skip_missing_files:
+    description: |
+      Skip coverage data of files that don't exist on the file system.
+    type: boolean
+    default: false
+  coverage_token:
     description: |
       The Qlty code coverage token provided through your
       Qlty's project settings. The orb will look for the
       QLTY_COVERAGE_TOKEN environment variable by default.
-    type: env_var_name
-    default: "QLTY_COVERAGE_TOKEN"
-  working_directory:
-    description: The directory where to run the Qlty CLI.
     type: string
-    default: "."
+    default: "QLTY_COVERAGE_TOKEN"
+  total_parts_count:
+    description: The total number of parts qlty cloud should expect to receive
+    type: integer
+    default: 1
 steps:
   - run:
       name: Install Qlty CLI
@@ -80,11 +56,9 @@ steps:
       environment:
         PARAM_FILES: << parameters.files >>
         PARAM_TAG: << parameters.tag >>
-        PARAM_TRANSFORM_ADD_PREFIX: << parameters.transform_add_prefix >>
-        PARAM_TRANSFORM_STRIP_PREFIX: << parameters.transform_strip_prefix >>
-        PARAM_OVERRIDE_BRANCH: << parameters.override_branch >>
-        PARAM_OVERRIDE_COMMIT_SHA: << parameters.override_commit_sha >>
-        PARAM_OVERRIDE_BUILD_ID: << parameters.override_build_id >>
+        PARAM_ADD_PREFIX: << parameters.add_prefix >>
+        PARAM_STRIP_PREFIX: << parameters.strip_prefix >>
+        PARAM_SKIP_MISSING_FILES: << parameters.skip_missing_files >>
+        PARAM_VERBOSE: << parameters.verbose >>
+        PARAM_COVERAGE_TOKEN: << parameters.coverage_token >>
         PARAM_TOTAL_PARTS_COUNT: << parameters.total_parts_count >>
-        PARAM_TOKEN: << parameters.token >>
-        PARAM_WORKING_DIRECTORY: << parameters.working_directory >>

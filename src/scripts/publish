@@ -19,25 +19,26 @@ add_param() {
 
 # Adding parameters if they are set
 add_param "--tag" "$PARAM_TAG"
-add_param "--transform-add-prefix" "$PARAM_TRANSFORM_ADD_PREFIX"
-add_param "--transform-strip-prefix" "$PARAM_TRANSFORM_STRIP_PREFIX"
-add_param "--override-branch" "$PARAM_OVERRIDE_BRANCH"
-add_param "--override-commit-sha" "$PARAM_OVERRIDE_COMMIT_SHA"
-add_param "--override-build-id" "$PARAM_OVERRIDE_BUILD_ID"
+add_param "--transform-add-prefix" "$PARAM_ADD_PREFIX"
+add_param "--transform-strip-prefix" "$PARAM_STRIP_PREFIX"
 
 if [[ -n $PARAM_TOTAL_PARTS_COUNT && $PARAM_TOTAL_PARTS_COUNT != "1" ]]; then
   add_param "--total-parts-count" "$PARAM_TOTAL_PARTS_COUNT"
 fi
 
-if [[ -n $PARAM_TOKEN && $PARAM_TOKEN != "QLTY_COVERAGE_TOKEN" ]]; then
-  TOKEN_VALUE="${!PARAM_TOKEN}"
+if $PARAM_VERBOSE; then
+  params+=("--verbose")
+fi
+
+if $PARAM_SKIP_MISSING_FILES; then
+  params+=("--skip-missing-files")
+fi
+
+if [[ -n $PARAM_COVERAGE_TOKEN && $PARAM_COVERAGE_TOKEN != "QLTY_COVERAGE_TOKEN" ]]; then
+  TOKEN_VALUE="${!PARAM_COVERAGE_TOKEN}"
   params+=("--token")
   params+=("$TOKEN_VALUE")
 fi
-
-# Expand PARAM_WORKING_DIRECTORY and change to it
-WORKING_DIRECTORY="${PARAM_WORKING_DIRECTORY/#\~/$HOME}"
-cd "$WORKING_DIRECTORY" || exit
 
 # Build the command
 if [[ -n $PARAM_FILES ]]; then
