@@ -4,7 +4,7 @@ description: >
 usage:
   version: 2.1
   orbs:
-    qlty: qltysh/qlty-orb@0.0.2
+    qlty: qltysh/qlty-orb@0
   jobs:
     run_tests_and_publish_coverage:
       docker:
