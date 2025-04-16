@@ -35,7 +35,7 @@ parameters:
       Skip coverage data of files that don't exist on the file system.
     type: boolean
     default: false
-  coverage_token:
+  token:
     description: |
       The Qlty code coverage token provided through your
       Qlty's project settings. The orb will look for the
@@ -60,5 +60,5 @@ steps:
         PARAM_STRIP_PREFIX: << parameters.strip_prefix >>
         PARAM_SKIP_MISSING_FILES: << parameters.skip_missing_files >>
         PARAM_VERBOSE: << parameters.verbose >>
-        PARAM_COVERAGE_TOKEN: << parameters.coverage_token >>
+        PARAM_TOKEN: << parameters.token >>
         PARAM_TOTAL_PARTS_COUNT: << parameters.total_parts_count >>

@@ -34,8 +34,8 @@ if $PARAM_SKIP_MISSING_FILES; then
   params+=("--skip-missing-files")
 fi
 
-if [[ -n $PARAM_COVERAGE_TOKEN && $PARAM_COVERAGE_TOKEN != "QLTY_COVERAGE_TOKEN" ]]; then
-  TOKEN_VALUE="${!PARAM_COVERAGE_TOKEN}"
+if [[ -n $PARAM_TOKEN && $PARAM_TOKEN != "QLTY_COVERAGE_TOKEN" ]]; then
+  TOKEN_VALUE="${!PARAM_TOKEN}"
   params+=("--token")
   params+=("$TOKEN_VALUE")
 fi
