@@ -1,5 +1,9 @@
 #!/bin/bash
 
+if [ "$PARAM_SKIP_ERRORS" != "true" ]; then
+  set -e
+fi
+
 QLTY_CMD="$HOME/.qlty/bin/qlty"
 
 # Initialize
