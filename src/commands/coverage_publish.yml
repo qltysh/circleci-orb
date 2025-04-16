@@ -32,7 +32,7 @@ parameters:
       run. Defaults to current working directory.
     type: string
     default: ""
-  tansform_strip_prefix:
+  transform_strip_prefix:
     description: |
       [Deprecated] The prefix to remove from absolute paths in
       coverage payloads, to make them relative to the project root.
