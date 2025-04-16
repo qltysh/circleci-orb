@@ -46,6 +46,10 @@ parameters:
     description: The total number of parts qlty cloud should expect to receive
     type: integer
     default: 1
+  working_directory:
+    description: The directory where to run the Qlty CLI.
+    type: string
+    default: "."
 steps:
   - run:
       name: Install Qlty CLI
@@ -62,3 +66,4 @@ steps:
         PARAM_VERBOSE: << parameters.verbose >>
         PARAM_TOKEN: << parameters.token >>
         PARAM_TOTAL_PARTS_COUNT: << parameters.total_parts_count >>
+        PARAM_WORKING_DIRECTORY: << parameters.working_directory >>

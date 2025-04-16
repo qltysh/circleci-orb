@@ -40,6 +40,10 @@ if [[ -n $PARAM_TOKEN && $PARAM_TOKEN != "QLTY_COVERAGE_TOKEN" ]]; then
   params+=("$TOKEN_VALUE")
 fi
 
+# Expand PARAM_WORKING_DIRECTORY and change to it
+WORKING_DIRECTORY="${PARAM_WORKING_DIRECTORY/#\~/$HOME}"
+cd "$WORKING_DIRECTORY" || exit
+
 # Build the command
 if [[ -n $PARAM_FILES ]]; then
   # Split PARAM_FILES by commas, trim whitespace, and filter empty values
