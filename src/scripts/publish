@@ -19,8 +19,12 @@ add_param() {
 
 # Adding parameters if they are set
 add_param "--tag" "$PARAM_TAG"
-add_param "--transform-add-prefix" "$PARAM_ADD_PREFIX"
-add_param "--transform-strip-prefix" "$PARAM_STRIP_PREFIX"
+
+add_prefix="${PARAM_ADD_PREFIX:-$PARAM_TRANSFORM_ADD_PREFIX}"
+add_param "--transform-add-prefix" "$add_prefix"
+
+strip_prefix="${PARAM_STRIP_PREFIX:-$PARAM_TRANSFORM_STRIP_PREFIX}"
+add_param "--transform-strip-prefix" "$strip_prefix"
 
 if [[ -n $PARAM_TOTAL_PARTS_COUNT && $PARAM_TOTAL_PARTS_COUNT != "1" ]]; then
   add_param "--total-parts-count" "$PARAM_TOTAL_PARTS_COUNT"
