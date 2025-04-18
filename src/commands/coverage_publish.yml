@@ -68,6 +68,10 @@ parameters:
     description: Ensure any errors do not cause CI pipeline to fail.
     type: boolean
     default: true
+  dry_run:
+    description: Create the coverage files but don't upload anything to cloud.
+    type: boolean
+    default: false
 steps:
   - run:
       name: Install Qlty CLI
@@ -88,3 +92,4 @@ steps:
         PARAM_TRANSFORM_ADD_PREFIX: << parameters.transform_add_prefix >>
         PARAM_TRANSFORM_STRIP_PREFIX: << parameters.transform_strip_prefix >>
         PARAM_SKIP_ERRORS: << parameters.skip_errors >>
+        PARAM_DRY_RUN: << parameters.dry_run >>

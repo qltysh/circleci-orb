@@ -42,6 +42,10 @@ if $PARAM_SKIP_MISSING_FILES; then
   params+=("--skip-missing-files")
 fi
 
+if $PARAM_DRY_RUN; then
+  params+=("--dry-run")
+fi
+
 if [[ -n $PARAM_TOKEN && $PARAM_TOKEN != "QLTY_COVERAGE_TOKEN" ]]; then
   TOKEN_VALUE="${!PARAM_TOKEN}"
   params+=("--token")
