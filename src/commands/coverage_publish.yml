@@ -12,15 +12,24 @@ parameters:
     description: The name of the tag to use for the coverage report.
     type: string
     default: ""
+  format:
+    description: |
+      The format of the coverage report to transform. If not
+      specified, the format will be inferred from the file
+      extension or contents [possible values: simplecov, clover,
+      cobertura, coverprofile, lcov, jacoco, qlty].
+    enum:
+      - ""
+      - clover
+      - cobertura
+      - coverprofile
+      - jacoco
+      - lcov
+      - simplecov
+      - qlty
   add_prefix:
     description: |
       The prefix to add to file paths in coverage payloads,
-      to make them match the project's directory structure.
-    type: string
-    default: ""
-  transform_add_prefix:
-    description: |
-      [Deprecated] The prefix to add to file paths in coverage payloads,
       to make them match the project's directory structure.
     type: string
     default: ""
@@ -28,14 +37,6 @@ parameters:
     description: |
       The prefix to remove from absolute paths in coverage
       payloads, to make them relative to the project root.
-      This is usually the directory in which the tests were
-      run. Defaults to current working directory.
-    type: string
-    default: ""
-  transform_strip_prefix:
-    description: |
-      [Deprecated] The prefix to remove from absolute paths in
-      coverage payloads, to make them relative to the project root.
       This is usually the directory in which the tests were
       run. Defaults to current working directory.
     type: string
@@ -54,7 +55,7 @@ parameters:
       The Qlty code coverage token provided through your
       Qlty's project settings. The orb will look for the
       QLTY_COVERAGE_TOKEN environment variable by default.
-    type: string
+    type: env_var_name
     default: "QLTY_COVERAGE_TOKEN"
   total_parts_count:
     description: The total number of parts qlty cloud should expect to receive
@@ -89,7 +90,5 @@ steps:
         PARAM_TOKEN: << parameters.token >>
         PARAM_TOTAL_PARTS_COUNT: << parameters.total_parts_count >>
         PARAM_WORKING_DIRECTORY: << parameters.working_directory >>
-        PARAM_TRANSFORM_ADD_PREFIX: << parameters.transform_add_prefix >>
-        PARAM_TRANSFORM_STRIP_PREFIX: << parameters.transform_strip_prefix >>
         PARAM_SKIP_ERRORS: << parameters.skip_errors >>
         PARAM_DRY_RUN: << parameters.dry_run >>
