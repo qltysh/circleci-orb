@@ -27,6 +27,7 @@ parameters:
       - lcov
       - simplecov
       - qlty
+    default: ""
   add_prefix:
     description: |
       The prefix to add to file paths in coverage payloads,
