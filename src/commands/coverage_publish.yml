@@ -18,6 +18,7 @@ parameters:
       specified, the format will be inferred from the file
       extension or contents [possible values: simplecov, clover,
       cobertura, coverprofile, lcov, jacoco, qlty].
+    type: enum
     enum:
       - ""
       - clover
