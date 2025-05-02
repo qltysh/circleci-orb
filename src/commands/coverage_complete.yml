@@ -1,0 +1,29 @@
+description: |
+  Mark the coverage report as complete. This is useful for server
+  side merging multiple coverage reports into a single report.
+
+  Note: For Alpine-based executors, ensure that `coreutils` and `curl` are installed.
+parameters:
+  tag:
+    description: The name of the tag to use for the coverage report.
+    type: string
+    default: ""
+  working_directory:
+    description: The directory where to run the Qlty CLI.
+    type: string
+    default: "."
+  skip_errors:
+    description: Ensure any errors do not cause CI pipeline to fail.
+    type: boolean
+    default: true
+steps:
+  - run:
+      name: Install Qlty CLI
+      command: <<include(scripts/install)>>
+  - run:
+      name: Publish Coverage Results
+      command: <<include(scripts/complete)>>
+      environment:
+        PARAM_TAG: << parameters.tag >>
+        PARAM_WORKING_DIRECTORY: << parameters.working_directory >>
+        PARAM_SKIP_ERRORS: << parameters.skip_errors >>
