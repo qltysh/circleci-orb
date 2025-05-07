@@ -6,9 +6,6 @@ fi
 
 QLTY_CMD="$HOME/.qlty/bin/qlty"
 
-# Initialize
-$QLTY_CMD init --no --no-upgrade-check --skip-plugins
-
 params=()
 
 # Function to add parameters

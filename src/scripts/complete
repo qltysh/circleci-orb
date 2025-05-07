@@ -6,9 +6,6 @@ fi
 
 QLTY_CMD="$HOME/.qlty/bin/qlty"
 
-# Initialize
-$QLTY_CMD init --no --no-upgrade-check --skip-plugins
-
 params=()
 
 # Function to add parameters
@@ -23,10 +20,6 @@ add_param() {
 
 # Adding parameters if they are set
 add_param "--tag" "$PARAM_TAG"
-
-if $PARAM_VERBOSE; then
-  params+=("--verbose")
-fi
 
 if [[ -n $PARAM_TOKEN && $PARAM_TOKEN != "QLTY_COVERAGE_TOKEN" ]]; then
   TOKEN_VALUE="${!PARAM_TOKEN}"
