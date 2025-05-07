@@ -1,6 +1,7 @@
 description: >
   Seamlessly publish your code coverage reports to Qlty Cloud with this Orb.
   Follow the example configuration below to integrate coverage reporting into your CI pipeline.
+  For marking coverage collection as complete, see the "complete" example.
 usage:
   version: 2.1
   orbs:

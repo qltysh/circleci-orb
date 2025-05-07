@@ -1,0 +1,26 @@
+description: >
+  Mark coverage collection as complete in Qlty Cloud.
+  This example demonstrates how to mark coverage collection as complete after uploading all coverage files.
+usage:
+  version: 2.1
+  orbs:
+    qlty: qltysh/qlty-orb@0.0.2
+  jobs:
+    upload_coverage:
+      docker:
+        - image: cimg/node
+      steps:
+        - checkout
+        - run: npm install
+        - run: npm test
+        # First, upload the coverage files
+        - qlty/coverage_publish:
+            files: coverage/lcov.info
+            tag: units
+        # Later, mark coverage collection as complete
+        - qlty/coverage_complete:
+            tag: units
+  workflows:
+    upload_and_complete_coverage:
+      jobs:
+        - upload_coverage

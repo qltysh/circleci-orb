@@ -1,0 +1,60 @@
+#!/bin/bash
+
+if [ "$PARAM_SKIP_ERRORS" != "true" ]; then
+  set -e
+fi
+
+QLTY_CMD="$HOME/.qlty/bin/qlty"
+
+# Initialize
+$QLTY_CMD init --no --no-upgrade-check --skip-plugins
+
+params=()
+
+# Function to add parameters
+add_param() {
+  local param_name=$1
+  local param_value=$2
+  if [[ -n $param_value ]]; then
+    params+=("$param_name")
+    params+=("$param_value")
+  fi
+}
+
+# Adding parameters if they are set
+add_param "--tag" "$PARAM_TAG"
+
+if $PARAM_VERBOSE; then
+  params+=("--verbose")
+fi
+
+if [[ -n $PARAM_TOKEN && $PARAM_TOKEN != "QLTY_COVERAGE_TOKEN" ]]; then
+  TOKEN_VALUE="${!PARAM_TOKEN}"
+  params+=("--token")
+  params+=("$TOKEN_VALUE")
+fi
+
+# Expand PARAM_WORKING_DIRECTORY and change to it
+WORKING_DIRECTORY="${PARAM_WORKING_DIRECTORY/#\~/$HOME}"
+cd "$WORKING_DIRECTORY" || exit
+
+# Build the command
+command="$QLTY_CMD coverage complete ${params[@]}"
+
+# Redact the token value
+redacted_command=$(printf "%s\n" "$command" | awk '{
+  for (i=1; i<=NF; i++) {
+    if ($i == "--token") {
+      printf "%s *** ", $i
+      i++  # Skip the next field (the actual token value)
+    } else {
+      printf "%s ", $i
+    }
+  }
+}')
+
+# Print the redacted command
+echo "Running: $redacted_command"
+
+# Execute the command
+eval "$command"
