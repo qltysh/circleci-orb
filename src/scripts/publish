@@ -41,9 +41,9 @@ if $PARAM_INCOMPLETE; then
   params+=("--incomplete")
 fi
 
-if [[ -n $PARAM_NAME ]]; then
+if [[ -n $PARAM_UPLOAD_NAME ]]; then
   params+=("--name")
-  params+=("$PARAM_NAME")
+  params+=("$PARAM_UPLOAD_NAME")
 fi
 
 if $PARAM_VALIDATE; then

@@ -79,7 +79,7 @@ parameters:
     description: Mark the coverage data as incomplete.
     type: boolean
     default: false
-  name:
+  upload_name:
     description: The name to identify this coverage upload.
     type: string
     default: ""
@@ -111,6 +111,6 @@ steps:
         PARAM_SKIP_ERRORS: << parameters.skip_errors >>
         PARAM_DRY_RUN: << parameters.dry_run >>
         PARAM_INCOMPLETE: << parameters.incomplete >>
-        PARAM_NAME: << parameters.name >>
+        PARAM_UPLOAD_NAME: << parameters.upload_name >>
         PARAM_VALIDATE: << parameters.validate >>
         PARAM_VALIDATE_FILE_THRESHOLD: << parameters.validate_file_threshold >>
