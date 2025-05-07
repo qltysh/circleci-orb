@@ -16,6 +16,7 @@ usage:
         - qlty/coverage_publish:
             files: coverage/lcov.info, coverage/lcov_2.info # Comma separated list of coverage files to upload
             # incomplete: true # Optional: mark this coverage data as incomplete
+            # name: "my-coverage-report" # Optional: provide a name to identify this coverage upload
   workflows:
     test_and_publish_coverage:
       jobs:

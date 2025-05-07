@@ -44,6 +44,11 @@ if $PARAM_INCOMPLETE; then
   params+=("--incomplete")
 fi
 
+if [[ -n $PARAM_NAME ]]; then
+  params+=("--name")
+  params+=("$PARAM_NAME")
+fi
+
 if [[ -n $PARAM_TOKEN && $PARAM_TOKEN != "QLTY_COVERAGE_TOKEN" ]]; then
   TOKEN_VALUE="${!PARAM_TOKEN}"
   params+=("--token")
