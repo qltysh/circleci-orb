@@ -89,8 +89,8 @@ parameters:
     default: false
   validate_file_threshold:
     description: Custom threshold percentage for validation (0-100). Only applies when validate is used.
-    type: string
-    default: ""
+    type: integer
+    default: 90
 steps:
   - run:
       name: Install Qlty CLI
