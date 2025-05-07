@@ -17,6 +17,8 @@ usage:
             files: coverage/lcov.info, coverage/lcov_2.info # Comma separated list of coverage files to upload
             # incomplete: true # Optional: mark this coverage data as incomplete
             # name: "my-coverage-report" # Optional: provide a name to identify this coverage upload
+            # validate: true # Optional: validate the coverage data
+            # validate_file_threshold: "80" # Optional: set a custom threshold percentage (0-100) for validation
   workflows:
     test_and_publish_coverage:
       jobs:

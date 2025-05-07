@@ -83,6 +83,14 @@ parameters:
     description: The name to identify this coverage upload.
     type: string
     default: ""
+  validate:
+    description: Validate the coverage data.
+    type: boolean
+    default: false
+  validate_file_threshold:
+    description: Custom threshold percentage for validation (0-100). Only applies when validate is used.
+    type: string
+    default: ""
 steps:
   - run:
       name: Install Qlty CLI
@@ -104,3 +112,5 @@ steps:
         PARAM_DRY_RUN: << parameters.dry_run >>
         PARAM_INCOMPLETE: << parameters.incomplete >>
         PARAM_NAME: << parameters.name >>
+        PARAM_VALIDATE: << parameters.validate >>
+        PARAM_VALIDATE_FILE_THRESHOLD: << parameters.validate_file_threshold >>

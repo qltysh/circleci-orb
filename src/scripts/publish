@@ -49,6 +49,15 @@ if [[ -n $PARAM_NAME ]]; then
   params+=("$PARAM_NAME")
 fi
 
+if $PARAM_VALIDATE; then
+  params+=("--validate")
+  
+  if [[ -n $PARAM_VALIDATE_FILE_THRESHOLD ]]; then
+    params+=("--validate-file-threshold")
+    params+=("$PARAM_VALIDATE_FILE_THRESHOLD")
+  fi
+fi
+
 if [[ -n $PARAM_TOKEN && $PARAM_TOKEN != "QLTY_COVERAGE_TOKEN" ]]; then
   TOKEN_VALUE="${!PARAM_TOKEN}"
   params+=("--token")
