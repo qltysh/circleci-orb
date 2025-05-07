@@ -40,6 +40,10 @@ if $PARAM_DRY_RUN; then
   params+=("--dry-run")
 fi
 
+if $PARAM_INCOMPLETE; then
+  params+=("--incomplete")
+fi
+
 if [[ -n $PARAM_TOKEN && $PARAM_TOKEN != "QLTY_COVERAGE_TOKEN" ]]; then
   TOKEN_VALUE="${!PARAM_TOKEN}"
   params+=("--token")
