@@ -1,0 +1,42 @@
+description: |
+  Mark coverage collection as complete in Qlty Cloud.
+  Use this command after all coverage files have been uploaded.
+
+  Note: For Alpine-based executors, ensure that `coreutils` and `curl` are installed.
+parameters:
+  tag:
+    description: The name of the tag to use for the coverage report.
+    type: string
+    default: ""
+  verbose:
+    description: Enable extra logging.
+    type: boolean
+    default: false
+  token:
+    description: |
+      The Qlty code coverage token provided through your
+      Qlty's project settings. The orb will look for the
+      QLTY_COVERAGE_TOKEN environment variable by default.
+    type: env_var_name
+    default: "QLTY_COVERAGE_TOKEN"
+  skip_errors:
+    description: Ensure any errors do not cause CI pipeline to fail.
+    type: boolean
+    default: true
+  working_directory:
+    description: The directory where to run the Qlty CLI.
+    type: string
+    default: "."
+steps:
+  - run:
+      name: Install Qlty CLI
+      command: <<include(scripts/install)>>
+  - run:
+      name: Complete Coverage Collection
+      command: <<include(scripts/complete)>>
+      environment:
+        PARAM_TAG: << parameters.tag >>
+        PARAM_VERBOSE: << parameters.verbose >>
+        PARAM_TOKEN: << parameters.token >>
+        PARAM_WORKING_DIRECTORY: << parameters.working_directory >>
+        PARAM_SKIP_ERRORS: << parameters.skip_errors >>

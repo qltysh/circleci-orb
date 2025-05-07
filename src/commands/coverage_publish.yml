@@ -75,6 +75,22 @@ parameters:
     description: Create the coverage files but don't upload anything to cloud.
     type: boolean
     default: false
+  incomplete:
+    description: Mark the coverage data as incomplete.
+    type: boolean
+    default: false
+  upload_name:
+    description: The name to identify this coverage upload.
+    type: string
+    default: ""
+  validate:
+    description: Validate the coverage data.
+    type: boolean
+    default: false
+  validate_file_threshold:
+    description: Custom threshold percentage for validation (0-100). Only applies when validate is used.
+    type: integer
+    default: 90
 steps:
   - run:
       name: Install Qlty CLI
@@ -94,3 +110,7 @@ steps:
         PARAM_WORKING_DIRECTORY: << parameters.working_directory >>
         PARAM_SKIP_ERRORS: << parameters.skip_errors >>
         PARAM_DRY_RUN: << parameters.dry_run >>
+        PARAM_INCOMPLETE: << parameters.incomplete >>
+        PARAM_UPLOAD_NAME: << parameters.upload_name >>
+        PARAM_VALIDATE: << parameters.validate >>
+        PARAM_VALIDATE_FILE_THRESHOLD: << parameters.validate_file_threshold >>

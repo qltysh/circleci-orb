@@ -6,9 +6,6 @@ fi
 
 QLTY_CMD="$HOME/.qlty/bin/qlty"
 
-# Initialize
-$QLTY_CMD init --no --no-upgrade-check --skip-plugins
-
 params=()
 
 # Function to add parameters
@@ -38,6 +35,24 @@ fi
 
 if $PARAM_DRY_RUN; then
   params+=("--dry-run")
+fi
+
+if $PARAM_INCOMPLETE; then
+  params+=("--incomplete")
+fi
+
+if [[ -n $PARAM_UPLOAD_NAME ]]; then
+  params+=("--name")
+  params+=("$PARAM_UPLOAD_NAME")
+fi
+
+if $PARAM_VALIDATE; then
+  params+=("--validate")
+  
+  if [[ -n $PARAM_VALIDATE_FILE_THRESHOLD ]]; then
+    params+=("--validate-file-threshold")
+    params+=("$PARAM_VALIDATE_FILE_THRESHOLD")
+  fi
 fi
 
 if [[ -n $PARAM_TOKEN && $PARAM_TOKEN != "QLTY_COVERAGE_TOKEN" ]]; then
