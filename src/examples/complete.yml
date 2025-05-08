@@ -17,6 +17,7 @@ usage:
         - qlty/coverage_publish:
             files: coverage/lcov.info
             tag: units
+            incomplete: true
         # Later, mark coverage collection as complete
         - qlty/coverage_complete:
             tag: units
