@@ -4,7 +4,7 @@ description: >
 usage:
   version: 2.1
   orbs:
-    qlty: qltysh/qlty-orb@0.0.2
+    qlty: qltysh/qlty-orb@0.0.3
   jobs:
     upload_coverage:
       docker:
@@ -17,6 +17,7 @@ usage:
         - qlty/coverage_publish:
             files: coverage/lcov.info
             tag: units
+            incomplete: true
         # Later, mark coverage collection as complete
         - qlty/coverage_complete:
             tag: units
