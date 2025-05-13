@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ "$PARAM_SKIP_ERRORS" != "true" ]; then
+if [ "$PARAM_SKIP_ERRORS" != "1" ]; then
   set -e
 fi
 
@@ -22,22 +22,29 @@ add_param() {
 add_param "--tag" "$PARAM_TAG"
 add_param "--strip-prefix" "$PARAM_STRIP_PREFIX"
 add_param "--add-prefix" "$PARAM_ADD_PREFIX"
-add_param "--total-parts-count" "$PARAM_TOTAL_PARTS_COUNT"
+
+# "1" is the default value for the qlty orb's `total-parts-count` parameter
+# While passing `--total-parts-count=1` to `qlty coverage publish` is valid, 
+# we are stripping it to avoid potential conflicts with the `--incomplete` flag
+# (`--total-parts-count 1 --incomplete` is invalid)
+if [[ -n $PARAM_TOTAL_PARTS_COUNT && $PARAM_TOTAL_PARTS_COUNT != "1" ]]; then
+  add_param "--total-parts-count" "$PARAM_TOTAL_PARTS_COUNT"
+fi
 add_param "--format" "$PARAM_FORMAT"
 
-if [ "$PARAM_VERBOSE" = "true" ]; then
+if [ "$PARAM_VERBOSE" = "1" ]; then
   params+=("--verbose")
 fi
 
-if [ "$PARAM_SKIP_MISSING_FILES" = "true" ]; then
+if [ "$PARAM_SKIP_MISSING_FILES" = "1" ]; then
   params+=("--skip-missing-files")
 fi
 
-if [ "$PARAM_DRY_RUN" = "true" ]; then
+if [ "$PARAM_DRY_RUN" = "1" ]; then
   params+=("--dry-run")
 fi
 
-if [ "$PARAM_INCOMPLETE" = "true" ]; then
+if [ "$PARAM_INCOMPLETE" = "1" ]; then
   params+=("--incomplete")
 fi
 
@@ -46,7 +53,7 @@ if [[ -n $PARAM_UPLOAD_NAME ]]; then
   params+=("$PARAM_UPLOAD_NAME")
 fi
 
-if [ "$PARAM_VALIDATE" = "true" ]; then
+if [ "$PARAM_VALIDATE" = "1" ]; then
   params+=("--validate")
   
   if [[ -n $PARAM_VALIDATE_FILE_THRESHOLD ]]; then
