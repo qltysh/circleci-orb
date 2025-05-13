@@ -6,7 +6,7 @@
 
 Publish your code coverage reports to Qlty Cloud to monitor and track code coverage metrics effectively.
 
-For additional information, refer to the [documentation](https://docs.qlty.sh/cloud/coverage/setup).
+For additional information, refer to the [documentation](https://docs.qlty.sh/coverage/quickstart).
 
 ### Resources
 

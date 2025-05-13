@@ -28,7 +28,7 @@ jobs:
       - qlty-orb/coverage_publish:
           files: coverage/coverage_0.json, coverage/coverage_1.json
           working_directory: ~/project/fixtures/basic-ruby
-          transform_strip_prefix: /home/repos/qlty-testing-orb
+          strip_prefix: /home/repos/qlty-testing-orb
 workflows:
   test-deploy:
     jobs:
