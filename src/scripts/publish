@@ -112,6 +112,10 @@ redacted_command=$(printf "%s\n" "$command" | awk '{
 # Print the redacted command
 echo "Running: $redacted_command"
 
+if [ "$PARAM_SKIP_ERRORS" = "1" ]; then
+  echo "Skipping errors as requested."
+fi
+
 # Execute the command
 eval "$command"
 if [ "$PARAM_SKIP_ERRORS" = "1" ]; then
