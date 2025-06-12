@@ -118,6 +118,12 @@ fi
 
 # Execute the command
 eval "$command"
+exit_code=$?
+
 if [ "$PARAM_SKIP_ERRORS" = "1" ]; then
+  echo "Expect to exit 0."
   exit 0
+else
+  echo "Expect to exit any."
+  exit $exit_code
 fi
