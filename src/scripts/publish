@@ -24,7 +24,7 @@ add_param "--strip-prefix" "$PARAM_STRIP_PREFIX"
 add_param "--add-prefix" "$PARAM_ADD_PREFIX"
 
 # "1" is the default value for the qlty orb's `total-parts-count` parameter
-# While passing `--total-parts-count=1` to `qlty coverage publish` is valid, 
+# While passing `--total-parts-count=1` to `qlty coverage publish` is valid,
 # we are stripping it to avoid potential conflicts with the `--incomplete` flag
 # (`--total-parts-count 1 --incomplete` is invalid)
 if [[ -n $PARAM_TOTAL_PARTS_COUNT && $PARAM_TOTAL_PARTS_COUNT != "1" ]]; then
@@ -55,7 +55,7 @@ fi
 
 if [ "$PARAM_VALIDATE" = "1" ]; then
   params+=("--validate")
-  
+
   if [[ -n $PARAM_VALIDATE_FILE_THRESHOLD ]]; then
     params+=("--validate-file-threshold")
     params+=("$PARAM_VALIDATE_FILE_THRESHOLD")
@@ -111,6 +111,6 @@ echo "Running: $redacted_command"
 
 # Execute the command
 eval "$command"
-if [ "$PARAM_SKIP_ERRORS" = "true" ]; then
+if [ "$PARAM_SKIP_ERRORS" = "1" ]; then
   exit 0
 fi
