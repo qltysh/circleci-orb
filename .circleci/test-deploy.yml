@@ -25,6 +25,15 @@ jobs:
       - image: cimg/base:current
     steps:
       - checkout
+      # CIRCLE_BRANCH env var is not set for runs triggered by tags.
+      # This is a workaround to ensure the CIRCLE_BRANCH is set to "main" if missing.
+      - run:
+        name: Set CIRCLE_BRANCH to main if missing
+        command: |
+          if [ -z "$CIRCLE_BRANCH" ]; then
+            export CIRCLE_BRANCH="main"
+            echo "CIRCLE_BRANCH was missing, set to main"
+          fi
       - qlty-orb/coverage_publish:
           files: coverage/coverage_0.json, coverage/coverage_1.json
           working_directory: ~/project/fixtures/basic-ruby
