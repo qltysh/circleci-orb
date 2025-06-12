@@ -110,9 +110,7 @@ redacted_command=$(printf "%s\n" "$command" | awk '{
 echo "Running: $redacted_command"
 
 # Execute the command
+eval "$command"
 if [ "$PARAM_SKIP_ERRORS" = "true" ]; then
-  eval "$command"
   exit 0
-else
-  eval "$command"
 fi
