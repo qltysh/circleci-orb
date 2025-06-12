@@ -31,7 +31,7 @@ jobs:
         name: Set CIRCLE_BRANCH to main if missing
         command: |
           if [ -z "$CIRCLE_BRANCH" ]; then
-            export CIRCLE_BRANCH="main"
+            echo 'export CIRCLE_BRANCH="main"' >> $BASH_ENV
             echo "CIRCLE_BRANCH was missing, set to main"
           fi
       - qlty-orb/coverage_publish:
