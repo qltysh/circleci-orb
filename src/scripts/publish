@@ -111,3 +111,6 @@ echo "Running: $redacted_command"
 
 # Execute the command
 eval "$command"
+if [ "$PARAM_SKIP_ERRORS" = "true" ]; then
+  exit 0
+fi
