@@ -1,5 +1,8 @@
 #!/bin/bash
 
+echo "PARAM_SKIP_ERRORS:"
+echo "$PARAM_SKIP_ERRORS"
+
 if [ "$PARAM_SKIP_ERRORS" != "1" ]; then
   set -e
 fi
