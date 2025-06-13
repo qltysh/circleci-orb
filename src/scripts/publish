@@ -1,10 +1,7 @@
 #!/bin/bash
 
-echo "PARAM_SKIP_ERRORS:"
-echo "$PARAM_SKIP_ERRORS"
-
-if [ "$PARAM_SKIP_ERRORS" != "1" ]; then
-  set -e
+if [ "$PARAM_SKIP_ERRORS" = "1" ]; then
+  set +e # Disable exit on error
 fi
 
 QLTY_CMD="$HOME/.qlty/bin/qlty"
@@ -119,13 +116,4 @@ fi
 
 # Execute the command
 eval "$command"
-exit_code=$?
-echo "Command exited with code: $exit_code"
-
-if [ "$PARAM_SKIP_ERRORS" = "1" ]; then
-  echo "Expect to exit 0."
-  exit 0
-else
-  echo "Expect to exit any."
-  exit $exit_code
-fi
+exit 0
