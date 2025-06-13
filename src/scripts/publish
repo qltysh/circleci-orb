@@ -1,7 +1,9 @@
 #!/bin/bash
 
-if [ "$PARAM_SKIP_ERRORS" != "1" ]; then
-  set -e
+if [ "$PARAM_SKIP_ERRORS" = "1" ]; then
+  # https://circleci.com/docs/configuration-reference/#default-shell-options
+  # By default, CircleCI runs commands with `set -e`, which causes the script to exit immediately if any command fails.
+  set +e
 fi
 
 QLTY_CMD="$HOME/.qlty/bin/qlty"
@@ -111,6 +113,4 @@ echo "Running: $redacted_command"
 
 # Execute the command
 eval "$command"
-if [ "$PARAM_SKIP_ERRORS" = "1" ]; then
-  exit 0
-fi
+exit 0
