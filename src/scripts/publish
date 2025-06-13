@@ -109,11 +109,6 @@ redacted_command=$(printf "%s\n" "$command" | awk '{
 # Print the redacted command
 echo "Running: $redacted_command"
 
-if [ "$PARAM_SKIP_ERRORS" = "1" ]; then
-  echo "Skipping errors as requested."
-  set +e  # Ensure 'set -e' is off so we can handle errors manually
-fi
-
 # Execute the command
 eval "$command"
 exit 0
