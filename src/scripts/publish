@@ -119,6 +119,7 @@ fi
 # Execute the command
 eval "$command"
 exit_code=$?
+echo "Command exited with code: $exit_code"
 
 if [ "$PARAM_SKIP_ERRORS" = "1" ]; then
   echo "Expect to exit 0."
