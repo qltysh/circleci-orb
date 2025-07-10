@@ -1,11 +1,20 @@
-#!/bin/bash
-
-if command -v curl &>/dev/null; then
-  curl https://qlty.sh/install.sh | bash
-elif command -v wget &>/dev/null; then
-  wget -O - https://qlty.sh/install.sh | bash
+#!/usr/bin/env sh
+# Choose the shell that will run the fetched install script
+if command -v bash >/dev/null 2>&1; then
+  shell="bash"
 else
-  error 'curl or wget is required to install qlty'
+  shell="sh"
 fi
 
-$HOME/.qlty/bin/qlty --version
+# Fetch the installer with curl or wget and pipe it to the chosen shell
+if command -v curl >/dev/null 2>&1; then
+  curl -fsSL https://qlty.sh/install.sh | "$shell"
+elif command -v wget >/dev/null 2>&1; then
+  wget -qO- https://qlty.sh/install.sh | "$shell"
+else
+  echo "error: curl or wget is required to install qlty" >&2
+  exit 1
+fi
+
+# Verify the installation
+"$HOME/.qlty/bin/qlty" --version
