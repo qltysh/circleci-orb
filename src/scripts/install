@@ -1,9 +1,9 @@
 #!/bin/bash
 
 if command -v curl &>/dev/null; then
-  curl https://qlty.sh/install.sh | bash
+  curl https://qlty.sh/install.sh | sh
 elif command -v wget &>/dev/null; then
-  wget -O - https://qlty.sh/install.sh | bash
+  wget -O - https://qlty.sh/install.sh | sh
 else
   error 'curl or wget is required to install qlty'
 fi
