@@ -86,7 +86,7 @@ parameters:
   validate:
     description: Validate the coverage data.
     type: boolean
-    default: false
+    default: true
   validate_file_threshold:
     description: Custom threshold percentage for validation (0-100). Only applies when validate is used.
     type: integer
