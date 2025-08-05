@@ -62,6 +62,8 @@ if [ "$PARAM_VALIDATE" = "1" ]; then
     params+=("--validate-file-threshold")
     params+=("$PARAM_VALIDATE_FILE_THRESHOLD")
   fi
+else
+  params+=("--no-validate")
 fi
 
 if [[ -n $PARAM_TOKEN && $PARAM_TOKEN != "QLTY_COVERAGE_TOKEN" ]]; then
