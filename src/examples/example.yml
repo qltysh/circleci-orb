@@ -5,7 +5,7 @@ description: >
 usage:
   version: 2.1
   orbs:
-    qlty: qltysh/qlty-orb@0.1.0
+    qlty-orb: qltysh/qlty-orb@0.1.0
   jobs:
     run_tests_and_publish_coverage:
       docker:
@@ -14,7 +14,7 @@ usage:
         - checkout
         - run: npm install
         - run: npm test
-        - qlty/coverage_publish:
+        - qlty-orb/coverage_publish:
             files: coverage/lcov.info, coverage/lcov_2.info # Comma separated list of coverage files to upload
             # incomplete: true # Optional: mark this coverage data as incomplete
             # name: "my-coverage-report" # Optional: provide a name to identify this coverage upload
