@@ -12,7 +12,7 @@ usage:
         - image: cimg/node
       steps:
         - checkout
-        - run: npm install
+        - run: npm install --ignore-scripts
         - run: npm test
         - qlty-orb/coverage_publish:
             files: coverage/lcov.info, coverage/lcov_2.info # Comma separated list of coverage files to upload
