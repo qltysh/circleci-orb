@@ -53,3 +53,11 @@ echo "Running: $redacted_command"
 
 # Execute the command
 eval "$command"
+
+exit_code=$?
+
+if [ "$PARAM_SKIP_ERRORS" = "1" ]; then
+  exit 0
+else
+  exit $exit_code
+fi
