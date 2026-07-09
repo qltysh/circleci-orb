@@ -23,6 +23,10 @@ add_param() {
 # Adding parameters if they are set
 add_param "--tag" "$PARAM_TAG"
 
+if [ "$PARAM_SELECTED" = "1" ]; then
+  params+=("--selection")
+fi
+
 if [[ -n $PARAM_TOKEN && $PARAM_TOKEN != "QLTY_COVERAGE_TOKEN" ]]; then
   TOKEN_VALUE="${!PARAM_TOKEN}"
   params+=("--token")

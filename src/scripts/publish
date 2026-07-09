@@ -50,6 +50,10 @@ if [ "$PARAM_INCOMPLETE" = "1" ]; then
   params+=("--incomplete")
 fi
 
+if [ "$PARAM_SELECTED" = "1" ]; then
+  params+=("--selection")
+fi
+
 if [[ -n $PARAM_UPLOAD_NAME ]]; then
   params+=("--name")
   params+=("$PARAM_UPLOAD_NAME")
