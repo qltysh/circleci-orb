@@ -50,7 +50,7 @@ if [ "$PARAM_INCOMPLETE" = "1" ]; then
   params+=("--incomplete")
 fi
 
-if [ "$PARAM_SELECTION" = "1" ]; then
+if [ "$PARAM_SELECTED" = "1" ]; then
   params+=("--selection")
 fi
 

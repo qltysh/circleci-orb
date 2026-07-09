@@ -23,7 +23,7 @@ add_param() {
 # Adding parameters if they are set
 add_param "--tag" "$PARAM_TAG"
 
-if [ "$PARAM_SELECTION" = "1" ]; then
+if [ "$PARAM_SELECTED" = "1" ]; then
   params+=("--selection")
 fi
 
