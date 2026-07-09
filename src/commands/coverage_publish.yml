@@ -79,6 +79,14 @@ parameters:
     description: Mark the coverage data as incomplete.
     type: boolean
     default: false
+  selection:
+    description: |
+      Mark the coverage data as coming from a selected subset of the
+      test suite. Selected coverage contributes to diff coverage only
+      and is excluded from total coverage. Pass to coverage_complete
+      as well when using server-side merging.
+    type: boolean
+    default: false
   upload_name:
     description: The name to identify this coverage upload.
     type: string
@@ -111,6 +119,7 @@ steps:
         PARAM_SKIP_ERRORS: << parameters.skip_errors >>
         PARAM_DRY_RUN: << parameters.dry_run >>
         PARAM_INCOMPLETE: << parameters.incomplete >>
+        PARAM_SELECTION: << parameters.selection >>
         PARAM_UPLOAD_NAME: << parameters.upload_name >>
         PARAM_VALIDATE: << parameters.validate >>
         PARAM_VALIDATE_FILE_THRESHOLD: << parameters.validate_file_threshold >>
